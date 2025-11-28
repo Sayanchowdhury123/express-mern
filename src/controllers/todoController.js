@@ -46,9 +46,15 @@ export const getTodos = async (req, res) => {
 
 export const deleteTodo = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     if (id) {
       const data = await todoSchema.findByIdAndDelete(id);
+      if(!data){
+            return res.status(400).json({
+        status: false,
+        message: "todo not found",
+      });
+      }
       return res.status(200).json({
         status: true,
         message: "todo deleted",
@@ -58,14 +64,15 @@ export const deleteTodo = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "failed to delete the todo",
-      data,
+      
     });
   }
 };
 
 export const editTodo = async (req, res) => {
   try {
-    const { id, newTitle } = req.body;
+     const { id } = req.params;
+    const {  newTitle } = req.body;
     if (id) {
       const todo = await todoSchema.findById(id);
       todo.title = newTitle;
@@ -79,14 +86,14 @@ export const editTodo = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "failed to edit the todo",
-      data,
+      
     });
   }
 };
 
 export const toggleComplete = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const todo = await todoSchema.findById(id);
     if (todo) {
       todo.complete = !todo.complete;
@@ -100,7 +107,7 @@ export const toggleComplete = async (req, res) => {
     return res.status(400).json({
       status: false,
       message: "failed to edit the todo",
-      data,
+      
     });
   }
 };

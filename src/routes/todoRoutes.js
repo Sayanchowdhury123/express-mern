@@ -6,9 +6,9 @@ const todoRoutes = express.Router();
 
 todoRoutes.get("/getTodo",getTodos)
 todoRoutes.post("/addTodo",addTodo)
-todoRoutes.put("/editTodo",editTodo)
-todoRoutes.patch("/toggleComplete",toggleComplete)
-todoRoutes.delete("/deleteTodo",deleteTodo)
+todoRoutes.put("/editTodo/:id",editTodo)
+todoRoutes.patch("/toggleComplete/:id",toggleComplete)
+todoRoutes.delete("/deleteTodo/:id",deleteTodo)
 
 
 export default todoRoutes;

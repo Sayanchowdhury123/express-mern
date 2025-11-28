@@ -1,12 +1,10 @@
 import mongoose from "mongoose";
 
-
-
-export async function dbConnect() {
+export async function dbConnect(){
   try {
-    mongoose.connect(process.env.url);
-    console.log("mogodb connected");
+   await mongoose.connect(process.env.url)
+   console.log("database conneted");
   } catch (error) {
-    console.log("database not connected");
+      console.log(error);
   }
 }
